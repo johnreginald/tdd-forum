@@ -8,7 +8,9 @@ Route::post('threads/{channel}/{thread}/replies', 'ReplyController@store')->name
 
 Route::get('threads/{channel}/{thread}', "ThreadController@show");
 
-Route::resource('threads', 'ThreadController')->except(['show']);
+Route::resource('threads', 'ThreadController')->only(['create', 'store', 'index']);
+
+Route::get('/threads/{channel}', "ThreadController@index");
 
 Auth::routes();
 
