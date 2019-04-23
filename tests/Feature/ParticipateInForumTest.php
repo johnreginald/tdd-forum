@@ -23,7 +23,7 @@ class ParticipateInForumTest extends TestCase
         $thread = create('App\Thread');
 
         // When then user add reply to the thread
-        $reply = make('App\Reply');
+        $reply = create('App\Reply');
         $this->post($thread->path() . '/replies', $reply->toArray() );
 
         // then their reply should be visible on the page
@@ -35,6 +35,7 @@ class ParticipateInForumTest extends TestCase
         $this->withoutExceptionHandling()
             ->expectException('Illuminate\Auth\AuthenticationException');
 
-        $this->post('/threads/1/replies', []);
+        $this->post('/threads/channel/1/replies', [])
+            ->assertRedirect('/login');
     }
 }
