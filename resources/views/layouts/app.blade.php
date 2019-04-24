@@ -33,14 +33,30 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item">
-                            <a href="{{ route('threads.index') }}" class="nav-link">Threads</a>
-                        </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Channel
+                            <a class="nav-link dropdown-toggle" href="#" id="threadsDropdown" role="button" data-toggle="dropdown"
+                               aria-haspopup="true" aria-expanded="false">
+                                Threads
                             </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <div class="dropdown-menu" aria-labelledby="threadsDropdown">
+                                <a href="{{ route('threads.index') }}" class="dropdown-item">Threads</a>
+                                @auth
+                                    <a href="{{ '/threads?by=' . auth()->user()->name }}" class="dropdown-item">My Threads</a>
+                                @endauth
+
+                            </div>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="/threads/create" class="nav-link">New Thread</a>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="channelDropdown" role="button" data-toggle="dropdown"
+                               aria-haspopup="true" aria-expanded="false">
+                                Channels
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="channelDropdown">
                                 @foreach($channels as $channel)
                                     <a class="dropdown-item" href="{{ '/threads/' . $channel->slug }}">{{ $channel->name }}</a>
                                 @endforeach
